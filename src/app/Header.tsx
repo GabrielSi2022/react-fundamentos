@@ -9,7 +9,7 @@ export default function Header() {
         </div>
 
         <div>
-          <h1 className="text-white text-2x1 ">Ignite Feed</h1>
+          <h1 className="text-white text-2xl">Ignite Feed</h1>
         </div>
       </div>
     </div>
