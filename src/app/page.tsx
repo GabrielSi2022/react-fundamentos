@@ -1,15 +1,20 @@
-import Dashboard from "./dashboard";
+import Feed from "./feed";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 export default function Home() {
   return (
     <>
+    
       <Header />
-      <div className="px-40 flex gap-8 justify-center mt-8">
+    
+      <div className="max-w-[1120px]  mx-auto my-8 px-8  
+                      grid  grid-cols-[256px_minmax(0,_1fr)] gap-8 ">
         <Sidebar />
-        <Dashboard />
+        <Feed />
       </div>
+    
+      
     </>
   );
 }
