@@ -4,10 +4,10 @@ import Comment from "./comment";
 export default function Feed() {
   return (
     <article className="bg-gray-900 rounded-lg p-10">
-      <header className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <header className="flex items-center justify-between max-[430px]:flex-col max-[430px]:items-start">
+        <div className="flex items-center gap-4  ">
           <Avatar src="Profile.svg" />
-          <div className="flex flex-col text-center ">
+          <div className="flex flex-col  ">
             <strong className="text-base leading-6 text-gray-100">
               Lara Lombardi
             </strong>
@@ -16,7 +16,7 @@ export default function Feed() {
         </div>
 
         <time
-          className="text-sm text-gray-400"
+          className="text-sm text-gray-400 max-[430px]:mt-5"
           title="11 de junho ás 18:36"
           dateTime="11/06/2023 18:36:30"
         >

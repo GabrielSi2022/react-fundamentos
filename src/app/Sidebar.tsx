@@ -5,7 +5,7 @@ import Avatar from "./avatar";
 
 export default function Sidebar() {
   return (
-    <div className=" bg-gray-900 rounded-lg max-[768px]:w-64 max-[768px]:mx-auto">
+    <div className=" bg-gray-900 rounded-lg ">
       <Image
         className="w-full h-[72px] object-cover rounded-t-lg"
         src="sideImg.svg"
