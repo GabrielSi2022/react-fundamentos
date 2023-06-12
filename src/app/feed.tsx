@@ -1,58 +1,69 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+
 import Avatar from "./avatar";
 import Comment from "./comment";
+import { IAuthor, IContent } from "./page";
 
-export default function Feed() {
+interface IProps {
+  author: IAuthor;
+  content: IContent[];
+  publishedAt: Date;
+}
+
+export default function Feed({ author, content, publishedAt }: IProps) {
+  const publishedDateFormatted = format(
+    publishedAt,
+    "d 'de' LLLL 'às' HH:mm'h'",
+    { locale: ptBR }
+  );
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
   return (
     <article className="bg-gray-900 rounded-lg p-10">
-      <header className="flex items-center justify-between max-[430px]:flex-col max-[430px]:items-start">
+      <header className="flex items-start justify-between max-[430px]:flex-col max-[430px]:items-start">
         <div className="flex items-center gap-4  ">
           <Avatar src="Profile.svg" />
           <div className="flex flex-col  ">
             <strong className="text-base leading-6 text-gray-100">
-              Lara Lombardi
+              {author.name}
             </strong>
-            <span className="text-sm text-gray-400 leading-6">Development</span>
+            <span className="text-sm text-gray-400 leading-6">
+              {author.role}
+            </span>
           </div>
         </div>
 
         <time
-          className="text-sm text-gray-400 max-[430px]:mt-5"
-          title="11 de junho ás 18:36"
-          dateTime="11/06/2023 18:36:30"
+          className="text-sm text-gray-400  max-[430px]:mt-5"
+          title={publishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
         >
-          Publicado há 1h
+          {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className="leading-6 text-gray-300 mt-6">
-        <p className="mt-4">Fala galeraa 👋</p>
-        <p className="mt-4">
-          Acabei de subir mais um projeto no meu portifolio. É um projeto que
-          fiz no curso ignite , da Rocketseat. O nome do projeto é Ignite Feed
-          🚀
-        </p>
-        <p className="mt-4">
-          👉
-          <a
-            className="font-bold text-green-500 hover:text-green-300"
-            href="https://github.com/GabrielSi2022"
-          >
-            {" "}
-            github.com/GabrielSi2022
-          </a>
-        </p>
-        <p className="mt-4">
-          <a className="font-bold text-green-500 hover:text-green-300" href="#">
-            #novoprojeto
-          </a>
-          <a className="font-bold text-green-500 hover:text-green-300" href="#">
-            {" "}
-            #nlw{" "}
-          </a>
-          <a className="font-bold text-green-500 hover:text-green-300" href="#">
-            #rocketseat
-          </a>
-        </p>
+        {content.map((line) => {
+          if (line.type === "paragraph") {
+            return <p className="mt-4">{line.content}</p>;
+          } else if (line.type === "link") {
+            return (
+              <p className="mt-4 ">
+                <a
+                  className="font-bold text-green-500 hover:text-green-300"
+                  href="#"
+                >
+                  {line.content}
+                </a>
+              </p>
+            );
+          }
+        })}
       </div>
 
       <form
