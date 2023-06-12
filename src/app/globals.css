@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-article + article{
+article + article {
   margin-top: 2rem;
 }
-
-
