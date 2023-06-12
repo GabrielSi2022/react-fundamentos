@@ -58,6 +58,15 @@ export default function Home() {
               />
             );
           })}
+          {posts.map((post) => {
+            return (
+              <Feed
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            );
+          })}
         </div>
       </div>
     </>

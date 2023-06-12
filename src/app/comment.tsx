@@ -1,5 +1,4 @@
-"use client";
-import { ThumbsUp, Trash } from "@phosphor-icons/react";
+import { ThumbsUp, Trash } from "../Icon";
 import Avatar from "./avatar";
 
 export default function Comment() {

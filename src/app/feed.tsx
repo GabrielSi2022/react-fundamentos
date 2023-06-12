@@ -1,3 +1,4 @@
+"use client";
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 
@@ -5,11 +6,13 @@ import Avatar from "./avatar";
 import Comment from "./comment";
 import { IAuthor, IContent } from "./page";
 
-interface IProps {
+export interface IProps {
   author: IAuthor;
   content: IContent[];
   publishedAt: Date;
 }
+
+const comments = [1, 2, 3];
 
 export default function Feed({ author, content, publishedAt }: IProps) {
   const publishedDateFormatted = format(
@@ -23,8 +26,14 @@ export default function Feed({ author, content, publishedAt }: IProps) {
     addSuffix: true,
   });
 
+  function handleCreateNewComment(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    comments.push(3);
+    console.log(comments);
+  }
+
   return (
-    <article className="bg-gray-900 rounded-lg p-10">
+    <article className="bg-gray-900 rounded-lg p-10 [&+article]:mt-2">
       <header className="flex items-start justify-between max-[430px]:flex-col max-[430px]:items-start">
         <div className="flex items-center gap-4  ">
           <Avatar src="Profile.svg" />
@@ -67,6 +76,7 @@ export default function Feed({ author, content, publishedAt }: IProps) {
       </div>
 
       <form
+        onSubmit={handleCreateNewComment}
         className="w-full mt-6 pt-6 
                        border-t-[1px] border-gray-600
                        flex flex-col"
@@ -94,9 +104,9 @@ export default function Feed({ author, content, publishedAt }: IProps) {
         </div>
       </form>
       <div className="mt-8">
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map((comment) => {
+          return <Comment />;
+        })}
       </div>
     </article>
   );

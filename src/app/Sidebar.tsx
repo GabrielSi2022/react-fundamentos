@@ -1,7 +1,7 @@
-"use client";
-import { PencilLine } from "@phosphor-icons/react";
 import Image from "next/image";
 import Avatar from "./avatar";
+
+import { PencilLine } from "../Icon";
 
 export default function Sidebar() {
   return (
