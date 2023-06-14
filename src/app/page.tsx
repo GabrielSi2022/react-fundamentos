@@ -52,15 +52,7 @@ export default function Home() {
           {posts.map((post) => {
             return (
               <Feed
-                author={post.author}
-                content={post.content}
-                publishedAt={post.publishedAt}
-              />
-            );
-          })}
-          {posts.map((post) => {
-            return (
-              <Feed
+                key={post.id}
                 author={post.author}
                 content={post.content}
                 publishedAt={post.publishedAt}

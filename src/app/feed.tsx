@@ -27,7 +27,7 @@ export default function Feed({ author, content, publishedAt }: IProps) {
       id: uuidv4(),
       author: "",
       publishedAt: new Date(),
-      content: "Hello Word",
+      content: "Post bacana!!",
     },
   ]);
 
@@ -84,10 +84,14 @@ export default function Feed({ author, content, publishedAt }: IProps) {
       <div className="leading-6 text-gray-300 mt-6">
         {content.map((line) => {
           if (line.type === "paragraph") {
-            return <p className="mt-4">{line.content}</p>;
+            return (
+              <p key={uuidv4()} className="mt-4">
+                {line.content}
+              </p>
+            );
           } else if (line.type === "link") {
             return (
-              <p className="mt-4 ">
+              <p key={uuidv4()} className="mt-4 ">
                 <a
                   className="font-bold text-green-500 hover:text-green-300"
                   href="#"
@@ -133,7 +137,7 @@ export default function Feed({ author, content, publishedAt }: IProps) {
       </form>
       <div className="mt-8">
         {comments.map((comments) => {
-          return <Comment content={comments.content} />;
+          return <Comment key={uuidv4()} content={comments.content} />;
         })}
       </div>
     </article>
