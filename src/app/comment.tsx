@@ -1,7 +1,8 @@
 import { ThumbsUp, Trash } from "../Icon";
 import Avatar from "./avatar";
+import { IComments } from "./feed";
 
-export default function Comment() {
+export default function Comment(props: IComments) {
   return (
     <div className="mt-6 flex gap-4">
       <div>
@@ -30,7 +31,7 @@ export default function Comment() {
               <Trash size={24} />
             </button>
           </header>
-          <p className="mt-4 text-gray-300">Muito bem Lara, parabéns!! 👏👏</p>
+          <p className="mt-4 text-gray-300"> {props.content} </p>
         </div>
 
         <footer className="mt-4">

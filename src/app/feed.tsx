@@ -5,6 +5,8 @@ import ptBR from "date-fns/locale/pt-BR";
 import Avatar from "./avatar";
 import Comment from "./comment";
 import { IAuthor, IContent } from "./page";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export interface IProps {
   author: IAuthor;
@@ -12,9 +14,25 @@ export interface IProps {
   publishedAt: Date;
 }
 
-const comments = [1, 2, 3];
+export interface IComments {
+  id?: string;
+  author?: string;
+  publishedAt?: Date;
+  content: string;
+}
 
 export default function Feed({ author, content, publishedAt }: IProps) {
+  const [comments, setComments] = useState<IComments[]>([
+    {
+      id: uuidv4(),
+      author: "",
+      publishedAt: new Date(),
+      content: "Hello Word",
+    },
+  ]);
+
+  const [newCommentText, setNewCommentText] = useState<string>("");
+
   const publishedDateFormatted = format(
     publishedAt,
     "d 'de' LLLL 'às' HH:mm'h'",
@@ -28,12 +46,19 @@ export default function Feed({ author, content, publishedAt }: IProps) {
 
   function handleCreateNewComment(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    comments.push(3);
-    console.log(comments);
-  }
 
+    const newComment = {
+      id: uuidv4(),
+      author: "",
+      publishedAt: new Date(),
+      content: newCommentText,
+    };
+
+    setComments([...comments, newComment]);
+    setNewCommentText("");
+  }
   return (
-    <article className="bg-gray-900 rounded-lg p-10 [&+article]:mt-2">
+    <article className="bg-gray-900 rounded-lg p-10 [&+article]:mt-8">
       <header className="flex items-start justify-between max-[430px]:flex-col max-[430px]:items-start">
         <div className="flex items-center gap-4  ">
           <Avatar src="Profile.svg" />
@@ -88,6 +113,9 @@ export default function Feed({ author, content, publishedAt }: IProps) {
                  border-none rounded-lg  focus:outline-none focus:shadow-[0_0px_0px_2px_rgba(0,179,126,1)]
                  resize-none text-gray-100 leading-[1.4rem]
                   "
+          name="comment"
+          value={newCommentText}
+          onChange={(e) => setNewCommentText(e.target.value)}
           placeholder="Deixe um comentario"
         />
         <div className="flex items-start ">
@@ -104,8 +132,8 @@ export default function Feed({ author, content, publishedAt }: IProps) {
         </div>
       </form>
       <div className="mt-8">
-        {comments.map((comment) => {
-          return <Comment />;
+        {comments.map((comments) => {
+          return <Comment content={comments.content} />;
         })}
       </div>
     </article>
